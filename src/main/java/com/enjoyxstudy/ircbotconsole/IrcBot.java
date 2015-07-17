@@ -160,6 +160,20 @@ public class IrcBot extends PircBot {
     }
 
     /**
+     * noticeを送信します。
+     *
+     * @param target
+     *            送信先
+     * @param notices
+     *            notice本文
+     */
+    public void sendNotices(String target, String[] notices) {
+        for (String notice : notices) {
+            sendNotice(target, notice);
+        }
+    }
+
+    /**
      * サーバ名を設定します。
      *
      * @param server
@@ -334,6 +348,17 @@ public class IrcBot extends PircBot {
         super.sendMessage(target, message);
         recieveCommandHandler.handleSendMessage(this, target, message);
     }
+    
+    /**
+     * @see org.jibble.pircbot.PircBot#sendNotice(java.lang.String,
+     *      java.lang.String)
+     */
+    @Override
+    public void sendNotice(String target, String message) {
+        super.sendNotice(target, message);
+        recieveCommandHandler.handleSendNotice(this, target, message);
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////////////////
 

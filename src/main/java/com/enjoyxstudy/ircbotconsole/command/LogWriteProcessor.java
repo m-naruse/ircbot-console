@@ -224,6 +224,15 @@ public class LogWriteProcessor extends AbstractRecieveCommandProcessor {
                 .format(MSG_FORMAT_NOTICE, sourceNick, notice));
     }
 
+    /**
+     * @see com.enjoyxstudy.ircbotconsole.command.RecieveCommandProcessor#onSendNotice(com.enjoyxstudy.ircbotconsole.IrcBot, java.lang.String, java.lang.String)
+     */
+    public void onSendNotice(IrcBot ircBot, String channel, String notice) {
+        Date now = new Date();
+        write(now, channel, String.format(MSG_FORMAT_NOTICE, ircBot.getNick(),
+                notice));
+    }
+
     /** PART時のログメッセージです。 */
     private static final String MSG_FORMAT_PART = "* %s (%s@%s) has left %s (%s)";
 

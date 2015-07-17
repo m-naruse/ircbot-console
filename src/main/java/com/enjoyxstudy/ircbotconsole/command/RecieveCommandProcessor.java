@@ -156,4 +156,12 @@ public interface RecieveCommandProcessor {
      */
     void onSendMessage(IrcBot ircBot, String channel, String message);
 
+    /**
+     * IRCボットの発言(notice)を受信します。
+     *
+     * @param ircBot IRCボット
+     * @param channel チャンネル
+     * @param notice メッセージ(notice)
+     */
+    void onSendNotice(IrcBot ircBot, String channel, String notice);
 }

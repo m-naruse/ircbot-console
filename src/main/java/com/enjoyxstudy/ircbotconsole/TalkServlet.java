@@ -36,6 +36,7 @@ public class TalkServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String message = request.getParameter("message");
         String channel = request.getParameter("channel");
+        boolean notice = Boolean.valueOf(request.getParameter("notice"));
 
         if (message == null || message.equals("") || channel == null
                 || channel.equals("")) {
@@ -51,7 +52,11 @@ public class TalkServlet extends HttpServlet {
         String[] messages = message.split("\r\n|\r|\n");
 
         IrcBotServer ircBotServer = IrcBotServer.getInstance();
-        ircBotServer.sendMessageFromHttp(channel, messages, remoteAddr);
+        if (notice) {
+            ircBotServer.sendNoticeFromHttp(channel, messages, remoteAddr);
+        } else {
+            ircBotServer.sendMessageFromHttp(channel, messages, remoteAddr);
+        }
 
     }
 

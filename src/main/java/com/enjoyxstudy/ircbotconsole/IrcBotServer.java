@@ -460,6 +460,30 @@ public class IrcBotServer {
     }
 
     /**
+     * HTTPで受け取ったnoticeを送信します。
+     *
+     * @param channel
+     *            チャンネル名
+     * @param notices
+     *            notice
+     * @param remoteAddr
+     *            リモートIPアドレス
+     */
+    public void sendNoticeFromHttp(String channel, String[] notices,
+            String remoteAddr) {
+
+        if (!config.isAllowHttpMessage()) {
+            // 許可されない場合エラー
+            throw new IllegalStateException("許可されていません。");
+        }
+
+        logger.info("HTTPで受け取ったnoticeを送信します。 リモートIP=[{}] チャンネル=[{}]",
+                remoteAddr, channel);
+
+        ircBot.sendNotices(channel, notices);
+    }
+    
+    /**
      * IRCに接続します。
      *
      * @throws NickAlreadyInUseException

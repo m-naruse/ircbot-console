@@ -106,4 +106,11 @@ public abstract class AbstractRecieveCommandProcessor implements
         // 処理なし(必要があれば継承して実装)
     }
 
+    /**
+     * @see com.enjoyxstudy.ircbotconsole.command.RecieveCommandProcessor#onSendNotice(com.enjoyxstudy.ircbotconsole.IrcBot, java.lang.String, java.lang.String)
+     */
+    public void onSendNotice(IrcBot ircBot, String channel, String notice) {
+        // 処理なし(必要があれば継承して実装)
+    }
+
 }

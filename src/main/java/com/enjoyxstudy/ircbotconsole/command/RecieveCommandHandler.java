@@ -508,6 +508,40 @@ public class RecieveCommandHandler {
     }
 
     /**
+     * notice送信を通知します。
+     * IrcBotの発言になります。
+     *
+     * @param ircBot IRCボット
+     * @param target 送信先(チャンネルまたはニックネーム)
+     * @param notice noticeメッセージ
+     */
+    public void handleSendNotice(IrcBot ircBot, String target, String notice) {
+
+        // チャンネルに対するメッセージの場合のみ通知
+        if (IrcBot.isChannel(target)) {
+
+            target= normalizeChannelName(target);
+
+            // デフォルトと、指定チャンネルのプロセッサに通知
+            List<RecieveCommandProcessor> defaultProcessorList = processorListHash
+                    .get(null);
+            if (defaultProcessorList != null) {
+                for (RecieveCommandProcessor processor : defaultProcessorList) {
+                    processor.onSendNotice(ircBot, target, notice);
+                }
+            }
+
+            List<RecieveCommandProcessor> targetProcessorList = processorListHash
+                    .get(target);
+            if (targetProcessorList != null) {
+                for (RecieveCommandProcessor processor : targetProcessorList) {
+                    processor.onSendNotice(ircBot, target, notice);
+                }
+            }
+        }
+    }
+    
+    /**
      * チャンネル名を正規化します。
      *
      * @param chanel 正規化前のチャンネル名
